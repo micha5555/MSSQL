@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.example.application.common.Common;
 import com.example.application.data.entity.Category;
 import com.example.application.data.entity.Client;
 import com.example.application.data.entity.Payment;
@@ -139,6 +140,18 @@ public class ShopService {
         purchaseRepository.save(purchase);
     }
 
+    public void deletePayment(Payment payment) {
+        paymentRepository.delete(payment);
+    }
+
+    public void savePayment(Payment payment) {
+        if (payment == null) { 
+            System.err.println("Payment is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        paymentRepository.save(payment);
+    }
+
     private void createFakeData() {
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(new Category("RTV"));
@@ -219,9 +232,9 @@ public class ShopService {
 
         List<Purchase> purchases = findAllPurchases();
         List<Payment> payments = new ArrayList<>();
-        payments.add(new Payment("Credit card", purchases.get(0)));
-        payments.add(new Payment("Voucher", purchases.get(0)));
-        payments.add(new Payment("In cash", purchases.get(0)));
+        payments.add(new Payment(Common.getPaymentMethods().get(1), purchases.get(0)));
+        payments.add(new Payment(Common.getPaymentMethods().get(0), purchases.get(1)));
+        payments.add(new Payment(Common.getPaymentMethods().get(2), purchases.get(2)));
 
         this.paymentRepository.saveAll(payments);
         // private String name;

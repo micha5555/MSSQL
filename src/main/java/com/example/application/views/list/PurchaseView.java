@@ -89,7 +89,6 @@ public class PurchaseView extends VerticalLayout{
         return toolbar;
     }
 
-
     private void addPurchase() {
         grid.asSingleSelect().clear();
         editPurchase(new Purchase());
@@ -117,7 +116,6 @@ public class PurchaseView extends VerticalLayout{
         updateList();
         closeEditor();
     }
-
 
     private void updateList() {
         grid.setItems(service.findAllPurchases());

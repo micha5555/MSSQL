@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.application.common.Common;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +17,7 @@ public class Payment extends AbstractEntity{
     private static List<String> paymentMethodsList;
 
     static {
-        paymentMethodsList = new ArrayList<>(Arrays.asList(
-            "In cash", "Credit card", "Voucher"));
+        paymentMethodsList = Common.getPaymentMethods();
     }
 
     @NotNull

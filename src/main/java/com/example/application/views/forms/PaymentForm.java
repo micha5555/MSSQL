@@ -2,10 +2,9 @@ package com.example.application.views.forms;
 
 import java.util.List;
 
-import com.example.application.data.entity.Client;
-import com.example.application.data.entity.Product;
+import com.example.application.common.Common;
+import com.example.application.data.entity.Payment;
 import com.example.application.data.entity.Purchase;
-import com.example.application.service.ShopService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -14,62 +13,41 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
-public class PurchaseForm extends FormLayout{
-    Binder<Purchase> binder = new BeanValidationBinder<>(Purchase.class);
-    Grid<Product> grid = new Grid<>();
-    ComboBox<Client> client = new ComboBox<>("Client");
-    
-    List<Product> products;
-    private Purchase purchase;
+public class PaymentForm extends FormLayout{
+    Binder<Payment> binder = new BeanValidationBinder<>(Payment.class);
+    ComboBox<Purchase> purchase = new ComboBox<>("Purchase");
+    ComboBox<String> paymentMethods = new ComboBox<>("Payment method");
+
+    private Payment payment;
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button cancel = new Button("Cancel");
 
-    public PurchaseForm(List<Product> products, List<Client> clients) {
-        this.products = products;
+    public PaymentForm(List<Purchase> purchases) {
         addClassName("contact-form");
         binder.bindInstanceFields(this); 
-        client.setItems(clients);
 
-        grid.setItems(products);
-        grid.setSelectionMode(SelectionMode.MULTI);
+        purchase.setItems(purchases);
+        paymentMethods.setItems(Common.getPaymentMethods());
 
-        configureGrid();
         add(
-            client,
-            grid,
+            purchase,
+            paymentMethods,
             createButtonLayout()
         );
-        
     }
 
-    private void configureGrid() {
-        grid.addClassName("contact-grid");
-        grid.addColumn(Product::getName).setHeader("Products");
-    }
-
-    public void setPurchase(Purchase purchase) {
-        grid.deselectAll();
-        this.purchase = purchase;
-        binder.readBean(purchase);
-        binder.setBean(purchase); // <1>
-        if(purchase != null) {
-            if(purchase.getOrderedProducts() != null) {
-                for(Product p : purchase.getOrderedProducts()) {
-                    grid.select(p);
-                }
-            }
-        }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+        binder.readBean(payment);
+        binder.setBean(payment); // <1>
       }
 
     private Component createButtonLayout() {
@@ -78,7 +56,7 @@ public class PurchaseForm extends FormLayout{
         cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
         save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, purchase)));
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, payment)));
         cancel.addClickListener(event -> fireEvent(new CloseEvent(this)));
         save.addClickShortcut(Key.ENTER);
         cancel.addClickShortcut(Key.ESCAPE);
@@ -89,41 +67,40 @@ public class PurchaseForm extends FormLayout{
 
     private void validateAndSave() {
         try {
-          purchase.setOrderedProducts(grid.getSelectedItems());
-          binder.writeBean(purchase);
-          fireEvent(new SaveEvent(this, purchase));
+          binder.writeBean(payment);
+          fireEvent(new SaveEvent(this, payment));
         } catch (ValidationException e) {
           e.printStackTrace();
         }
     }
     
-    public static abstract class PurchaseFormEvent extends ComponentEvent<PurchaseForm> {
-        private Purchase purchase;
+    public static abstract class PaymentFormEvent extends ComponentEvent<PaymentForm> {
+        private Payment payment;
       
-        protected PurchaseFormEvent(PurchaseForm source, Purchase purchase) { 
+        protected PaymentFormEvent(PaymentForm source, Payment payment) { 
           super(source, false);
-          this.purchase = purchase;
+          this.payment = payment;
         }
       
-        public Purchase getPurchase() {
-          return purchase;
+        public Payment getPayment() {
+          return payment;
         }
     }
-        public static class SaveEvent extends PurchaseFormEvent {
-            SaveEvent(PurchaseForm source, Purchase purchase) {
-              super(source, purchase);
+        public static class SaveEvent extends PaymentFormEvent {
+            SaveEvent(PaymentForm source, Payment payment) {
+              super(source, payment);
             }
           }
           
-          public static class DeleteEvent extends PurchaseFormEvent {
-            DeleteEvent(PurchaseForm source, Purchase purchase) {
-              super(source, purchase);
+          public static class DeleteEvent extends PaymentFormEvent {
+            DeleteEvent(PaymentForm source, Payment payment) {
+              super(source, payment);
             }
           
           }
           
-          public static class CloseEvent extends PurchaseFormEvent {
-            CloseEvent(PurchaseForm source) {
+          public static class CloseEvent extends PaymentFormEvent {
+            CloseEvent(PaymentForm source) {
               super(source, null);
             }
           }

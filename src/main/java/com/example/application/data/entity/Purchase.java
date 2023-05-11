@@ -37,8 +37,6 @@ public class Purchase extends AbstractEntity{
         this.dateOfOrder = LocalDateTime.now().toString();
     }
 
-    
-
     public Set<Product> getOrderedProducts() {
         return orderedProducts;
     }
@@ -64,7 +62,7 @@ public class Purchase extends AbstractEntity{
             orderedProductsInString = orderedProductsInString + "\n";
         }
         // System.out.println(orderedProductsInString);
-        return String.format("Ordered products:\n%s%nDate of order: %s", orderedProductsInString, dateOfOrder);
+        return String.format("Client <br>: " + client.getlogin() + "; Ordered products:\n%s%nDate of order: %s", orderedProductsInString, dateOfOrder);
     }
 
     public Client getClient() {
