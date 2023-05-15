@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Product extends AbstractEntity{
+
+    // @Id
+    // @NotBlank
+    // private int product_id;
 
     @NotEmpty
     private String name;

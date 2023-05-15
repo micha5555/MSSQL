@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
+// @Entity
 public class Purchase extends AbstractEntity{
     
     //Przerobić żeby była lista

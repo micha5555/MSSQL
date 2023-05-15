@@ -11,7 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
+// @Entity
 public class Payment extends AbstractEntity{
     
     private static List<String> paymentMethodsList;

@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
+// @Entity
 public class Review extends AbstractEntity {
     
     @NotNull
@@ -20,7 +20,7 @@ public class Review extends AbstractEntity {
     private String reviewBody;
 
     @ManyToOne
-    private Product product;
+    private Product product_id;
 
     public Review() {
         this.dateOfReview = LocalDateTime.now().toString();
@@ -31,7 +31,7 @@ public class Review extends AbstractEntity {
         validateRate(rate);
         this.rate = rate;
         this.reviewBody = reviewBody;
-        this.product = product;
+        this.product_id = product;
     }
 
     public String getDateOfReview() {
@@ -47,7 +47,7 @@ public class Review extends AbstractEntity {
     }
 
     public Product getProduct() {
-        return product;
+        return product_id;
     }
 
     public void setRate(int rate) {
@@ -59,7 +59,7 @@ public class Review extends AbstractEntity {
     }
 
     public void setProduct(Product product) {
-        this.product = product;
+        this.product_id = product;
     }
 
     private void validateRate(int rate) {

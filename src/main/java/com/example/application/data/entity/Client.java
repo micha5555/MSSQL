@@ -10,7 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
+// @Entity
 public class Client extends AbstractEntity{
     
     @NotBlank
@@ -35,6 +35,12 @@ public class Client extends AbstractEntity{
     }
 
     public Client(String login, String mail) {
+        this.login = login;
+        this.mail = mail;
+        this.dateOfJoin = LocalDateTime.now().toString();
+    }
+
+    public Client(String login, String mail, String dateOfJoin) {
         this.login = login;
         this.mail = mail;
         this.dateOfJoin = LocalDateTime.now().toString();

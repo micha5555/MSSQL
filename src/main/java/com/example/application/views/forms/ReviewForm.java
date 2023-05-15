@@ -23,7 +23,7 @@ import com.vaadin.flow.shared.Registration;
 public class ReviewForm extends FormLayout{
     Binder<Review> binder = new BeanValidationBinder<>(Review.class);
     TextField reviewBody = new TextField("Review body");
-    ComboBox<Product> product = new ComboBox<>("Product");
+    ComboBox<Product> product_id = new ComboBox<>("Product");
     ComboBox<Integer> rate = new ComboBox<>("Rate"); 
 
     private Review review;
@@ -36,7 +36,7 @@ public class ReviewForm extends FormLayout{
         addClassName("contact-form");
         binder.bindInstanceFields(this); 
 
-        product.setItems(products);
+        product_id.setItems(products);
         List<Integer> rates = new ArrayList<>(){{
             add(1); 
             add(2); 
@@ -47,7 +47,7 @@ public class ReviewForm extends FormLayout{
         rate.setItems(rates);
 
         add(
-            product,
+            product_id,
             rate,
             reviewBody,
             createButtonLayout()

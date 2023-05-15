@@ -93,6 +93,19 @@
             <artifactId>vaadin-testbench-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+            <!-- <scope>runtinme</scope> -->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <version>3.0.6</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -140,6 +153,7 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
+
             </dependencies>
             <build>
                 <plugins>
@@ -198,7 +212,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                        
                             <trimStackTrace>false</trimStackTrace>
                             <enableAssertions>true</enableAssertions>
                         </configuration>

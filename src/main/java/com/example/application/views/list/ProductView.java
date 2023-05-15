@@ -83,7 +83,7 @@ public class ProductView extends VerticalLayout{
     }
 
     private void updateList() {
-        grid.setItems(service.findAllProducts(filterText.getValue()));
+        // grid.setItems(service.findAllProducts(filterText.getValue()));
     }
 
     private void addProduct() {
@@ -103,13 +103,13 @@ public class ProductView extends VerticalLayout{
     }
 
     private void saveProduct(ProductForm.SaveEvent event) {
-        service.saveProduct(event.getProduct());
+        // service.saveProduct(event.getProduct());
         updateList();
         closeEditor();
     }
 
     private void deleteProduct(ProductForm.DeleteEvent event) {
-        service.deleteProduct(event.getProduct());
+        // service.deleteProduct(event.getProduct());
         updateList();
         closeEditor();
     }
