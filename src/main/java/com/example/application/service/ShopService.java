@@ -38,8 +38,8 @@ public class ShopService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    // @Autowired
-    // private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
     // @Autowired
     // private ReviewRepository reviewRepository;
     // @Autowired
@@ -49,8 +49,10 @@ public class ShopService {
     // @Autowired
     // private PaymentRepository paymentRepository;
 
-    public ShopService(CategoryRepository categoryRepository) {
+    public ShopService(CategoryRepository categoryRepository,
+                        ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
         createFakeData();
     }
 
@@ -66,13 +68,13 @@ public class ShopService {
         // }
     }
 
-    // public List<Product> findAllProducts(String stringFilter) {
-    //     // if(stringFilter == null || stringFilter.isEmpty()) {
-    //         return productRepository.findAll();
-    //     // } else {
-    //         // return productRepository.search(stringFilter);
-    //     // }
-    // }
+    public List<Product> findAllProducts(String stringFilter) {
+        // if(stringFilter == null || stringFilter.isEmpty()) {
+            return productRepository.findAll();
+        // } else {
+            // return productRepository.search(stringFilter);
+        // }
+    }
 
     // public List<Review> findAllReviews() {
     //     return reviewRepository.findAll();
@@ -115,13 +117,13 @@ public class ShopService {
     //     productRepository.delete(product);
     // }
 
-    // public void saveProduct(Product product) {
-    //     if (product == null) { 
-    //         System.err.println("Product is null. Are you sure you have connected your form to the application?");
-    //         return;
-    //     }
-    //     productRepository.save(product);
-    // }
+    public void saveProduct(Product product) {
+        if (product == null) { 
+            System.err.println("Product is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        productRepository.save(product);
+    }
 
     // public void deleteClient(Client client) {
     //     clientRepository.delete(client);

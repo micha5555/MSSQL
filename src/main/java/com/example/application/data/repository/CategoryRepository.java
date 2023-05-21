@@ -7,16 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -31,6 +27,13 @@ public class CategoryRepository/* extends JpaRepository<Category, Long>*/{
 
     public List<Category> findAll() {
         return jdbcTemplate.query("SELECT * FROM category", new CategoryMapper());
+    }
+
+    public Category findCategoryById(int id) {
+        String query = "SELECT * FROM category WHERE category_id = ?";
+
+        return jdbcTemplate.queryForObject(query, new CategoryMapper(), id);
+        
     }
 
     public int save(Category category) {

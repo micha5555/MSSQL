@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -16,9 +17,9 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class Product extends AbstractEntity{
 
-    // @Id
-    // @NotBlank
-    // private int product_id;
+    @Id
+    @NotBlank
+    private int product_id;
 
     @NotEmpty
     private String name;
@@ -32,12 +33,34 @@ public class Product extends AbstractEntity{
     private double price;
 
     @OneToOne
-    @NotNull
+    // @NotNull
+    @JoinColumn(name = "category")
     private Category category;
 
-    @ManyToMany
-    // @NotNull
-    private Set<Purchase> purchases;
+    // @ManyToMany
+    // // @NotNull
+    // private Set<Purchase> purchases;
+
+    public Product(){
+        this.product_id = -1;
+    }
+
+    public Product(int product_id, String name, int quantity, String description, double price, Category category) {
+        this.product_id = product_id;
+        this.name = name;
+        this.quantity = quantity;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public void setId(int id) {
+        this.product_id = id;
+    }
+
+    public int getId() {
+        return product_id;
+    }
 
     public String getName() {
         return name;
@@ -78,19 +101,17 @@ public class Product extends AbstractEntity{
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    
     
     @Override
     public String toString() {
         return name;
     }
 
-    public Set<Purchase> getPurchases() {
-        return purchases;
-    }
+    // public Set<Purchase> getPurchases() {
+    //     return purchases;
+    // }
 
-    public void setPurchases(Set<Purchase> purchases) {
-        this.purchases = purchases;
-    }
+    // public void setPurchases(Set<Purchase> purchases) {
+    //     this.purchases = purchases;
+    // }
 }
