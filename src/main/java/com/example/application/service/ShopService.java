@@ -46,19 +46,21 @@ public class ShopService {
     private PurchaseRepository purchaseRepository;
     @Autowired
     private ClientRepository clientRepository;
-    // @Autowired
-    // private PaymentRepository paymentRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     public ShopService(CategoryRepository categoryRepository,
                         ProductRepository productRepository,
                         ReviewRepository reviewRepository,
                         ClientRepository clientRepository,
-                        PurchaseRepository purchaseRepository) {
+                        PurchaseRepository purchaseRepository,
+                        PaymentRepository paymentRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.reviewRepository = reviewRepository;
         this.clientRepository = clientRepository;
         this.purchaseRepository = purchaseRepository;
+        this.paymentRepository = paymentRepository;
         createFakeData();
     }
 
@@ -90,9 +92,9 @@ public class ShopService {
         return purchaseRepository.findAll();
     }
 
-    // public List<Payment> findAllPayments() {
-    //     return paymentRepository.findAll();
-    // }
+    public List<Payment> findAllPayments() {
+        return paymentRepository.findAll();
+    }
 
     public void deleteCategory(Category category) {
         categoryRepository.delete(category);
@@ -155,17 +157,17 @@ public class ShopService {
         purchaseRepository.save(purchase);
     }
 
-    // public void deletePayment(Payment payment) {
-    //     paymentRepository.delete(payment);
-    // }
+    public void deletePayment(Payment payment) {
+        paymentRepository.delete(payment);
+    }
 
-    // public void savePayment(Payment payment) {
-    //     if (payment == null) { 
-    //         System.err.println("Payment is null. Are you sure you have connected your form to the application?");
-    //         return;
-    //     }
-    //     paymentRepository.save(payment);
-    // }
+    public void savePayment(Payment payment) {
+        if (payment == null) { 
+            System.err.println("Payment is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        paymentRepository.save(payment);
+    }
 
     private void createFakeData() {
         // List<Category> categoryList = new ArrayList<>();

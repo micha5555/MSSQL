@@ -68,7 +68,7 @@ public class PaymentView extends VerticalLayout{
     }
 
     private void configureForm() {
-        // paymentForm = new PaymentForm(service.findAllPurchases());
+        paymentForm = new PaymentForm(service.findAllPurchases());
         paymentForm.setWidth("25em");
 
         paymentForm.addSaveListener(this::savePayment);
@@ -107,19 +107,19 @@ public class PaymentView extends VerticalLayout{
     }
 
     private void savePayment(PaymentForm.SaveEvent event) {
-        // service.savePayment(event.getPayment());
+        service.savePayment(event.getPayment());
         updateList();
         closeEditor();
     }
 
     private void deletePayment(PaymentForm.DeleteEvent event) {
-        // service.deletePayment(event.getPayment());
+        service.deletePayment(event.getPayment());
         updateList();
         closeEditor();
     }
 
     private void updateList() {
-        // grid.setItems(service.findAllPayments());
+        grid.setItems(service.findAllPayments());
     }
 
 }
