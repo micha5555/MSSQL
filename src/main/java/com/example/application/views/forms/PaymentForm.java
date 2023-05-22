@@ -22,6 +22,7 @@ import com.vaadin.flow.shared.Registration;
 public class PaymentForm extends FormLayout{
     Binder<Payment> binder = new BeanValidationBinder<>(Payment.class);
     ComboBox<Purchase> purchase = new ComboBox<>("Purchase");
+    
     ComboBox<String> paymentMethods = new ComboBox<>("Payment method");
 
     private Payment payment;
