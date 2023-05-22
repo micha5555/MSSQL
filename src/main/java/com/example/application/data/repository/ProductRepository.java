@@ -44,7 +44,6 @@ public class ProductRepository/*  extends JpaRepository<Product, Long>*/{
         } else {
             return update(product);
         }
-        return 0;
     }
 
     private int add(Product product) {
@@ -69,16 +68,16 @@ public class ProductRepository/*  extends JpaRepository<Product, Long>*/{
     }
 
     private int update(Product product) {
-        String query = "UPDATE product SET category_name = ? WHERE category_id = ?";
+        String query = "UPDATE product SET name = ?, quantity = ?, description = ?, price = ?, category = ? WHERE product_id = ?";
 
-        jdbcTemplate.update(query, category.getName(), category.getId());
+        jdbcTemplate.update(query, product.getName(), product.getQuantity(), product.getDescription(), product.getPrice(), product.getCategory().getId(), product.getId());
 
-        return category.getId();
+        return product.getId();
     }
 
-    public boolean delete(Category category) {
-        String query = "DELETE FROM category WHERE category_id = ?";
-        int result = jdbcTemplate.update(query, category.getId());
+    public boolean delete(Product product) {
+        String query = "DELETE FROM product WHERE product_id = ?";
+        int result = jdbcTemplate.update(query, product.getId());
         return result > 0;
     }
 

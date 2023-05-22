@@ -3,13 +3,20 @@ package com.example.application.data.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-// @Entity
+@Entity
 public class Review extends AbstractEntity {
     
+    @Id
+    @NotBlank
+    private int review_id;
+
     @NotNull
     private String dateOfReview;
 
@@ -20,18 +27,37 @@ public class Review extends AbstractEntity {
     private String reviewBody;
 
     @ManyToOne
-    private Product product_id;
+    @JoinColumn(name = "product")
+    private Product product;
 
     public Review() {
+        review_id = -1;
         this.dateOfReview = LocalDateTime.now().toString();
     }
 
-    public Review(int rate, String reviewBody, Product product) {
-        this.dateOfReview = LocalDateTime.now().toString();
+    // public Review(int rate, String reviewBody, Product product) {
+    //     this.dateOfReview = LocalDateTime.now().toString();
+    //     validateRate(rate);
+    //     this.rate = rate;
+    //     this.reviewBody = reviewBody;
+    //     this.product_id = product;
+    // }
+
+    public Review(int review_id, int rate, String reviewBody, String dateOfReview, Product product) {
+        this.review_id = review_id;
+        this.dateOfReview = dateOfReview;
         validateRate(rate);
         this.rate = rate;
         this.reviewBody = reviewBody;
-        this.product_id = product;
+        this.product = product;
+    }
+
+    public int getId() {
+        return review_id;
+    }
+
+    public void setId(int review_id) {
+        this.review_id = review_id;
     }
 
     public String getDateOfReview() {
@@ -47,7 +73,7 @@ public class Review extends AbstractEntity {
     }
 
     public Product getProduct() {
-        return product_id;
+        return product;
     }
 
     public void setRate(int rate) {
@@ -59,7 +85,7 @@ public class Review extends AbstractEntity {
     }
 
     public void setProduct(Product product) {
-        this.product_id = product;
+        this.product = product;
     }
 
     private void validateRate(int rate) {

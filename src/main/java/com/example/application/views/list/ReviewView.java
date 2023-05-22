@@ -47,7 +47,7 @@ public class ReviewView extends VerticalLayout{
     private void configureGrid() {
         grid.addClassName("contact-grid");
         grid.setSizeFull();
-        grid.setColumns("product_id", "rate", "reviewBody", "dateOfReview");
+        grid.setColumns("product", "rate", "reviewBody", "dateOfReview");
         // grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         // grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
@@ -66,7 +66,7 @@ public class ReviewView extends VerticalLayout{
     }
 
     private void configureForm() {
-        // reviewForm = new ReviewForm(service.findAllProducts(null));
+        reviewForm = new ReviewForm(service.findAllProducts(null));
         reviewForm.setWidth("25em");
 
         reviewForm.addSaveListener(this::saveReview);
@@ -105,18 +105,18 @@ public class ReviewView extends VerticalLayout{
     }
 
     private void saveReview(ReviewForm.SaveEvent event) {
-        // service.saveReview(event.getReview());
+        service.saveReview(event.getReview());
         updateList();
         closeEditor();
     }
 
     private void deleteReview(ReviewForm.DeleteEvent event) {
-        // service.deleteReview(event.getReview());
+        service.deleteReview(event.getReview());
         updateList();
         closeEditor();
     }
 
     private void updateList() {
-        // grid.setItems(service.findAllReviews());
+        grid.setItems(service.findAllReviews());
     }
 }

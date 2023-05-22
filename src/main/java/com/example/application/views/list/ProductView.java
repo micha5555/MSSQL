@@ -109,7 +109,7 @@ public class ProductView extends VerticalLayout{
     }
 
     private void deleteProduct(ProductForm.DeleteEvent event) {
-        // service.deleteProduct(event.getProduct());
+        service.deleteProduct(event.getProduct());
         updateList();
         closeEditor();
     }

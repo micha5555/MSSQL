@@ -40,8 +40,8 @@ public class ShopService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-    // @Autowired
-    // private ReviewRepository reviewRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
     // @Autowired
     // private PurchaseRepository purchaseRepository;
     // @Autowired
@@ -50,9 +50,11 @@ public class ShopService {
     // private PaymentRepository paymentRepository;
 
     public ShopService(CategoryRepository categoryRepository,
-                        ProductRepository productRepository) {
+                        ProductRepository productRepository,
+                        ReviewRepository reviewRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.reviewRepository = reviewRepository;
         createFakeData();
     }
 
@@ -76,9 +78,9 @@ public class ShopService {
         // }
     }
 
-    // public List<Review> findAllReviews() {
-    //     return reviewRepository.findAll();
-    // }
+    public List<Review> findAllReviews() {
+        return reviewRepository.findAll();
+    }
 
     // public List<Purchase> findAllPurchases() {
     //     return purchaseRepository.findAll();
@@ -101,21 +103,21 @@ public class ShopService {
         categoryRepository.save(category);
     }
 
-    // public void deleteReview(Review review) {
-    //    reviewRepository.delete(review);
-    // }
+    public void deleteReview(Review review) {
+       reviewRepository.delete(review);
+    }
 
-    // public void saveReview(Review review) {
-    //     if (review == null) { 
-    //         System.err.println("Review is null. Are you sure you have connected your form to the application?");
-    //         return;
-    //     }
-    //     reviewRepository.save(review);
-    // }
+    public void saveReview(Review review) {
+        if (review == null) { 
+            System.err.println("Review is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        reviewRepository.save(review);
+    }
 
-    // public void deleteProduct(Product product) {
-    //     productRepository.delete(product);
-    // }
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
 
     public void saveProduct(Product product) {
         if (product == null) { 
