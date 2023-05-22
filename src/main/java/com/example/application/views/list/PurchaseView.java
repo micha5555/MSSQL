@@ -67,7 +67,7 @@ public class PurchaseView extends VerticalLayout{
     }
 
     private void configureForm() {
-        // purchaseForm = new PurchaseForm(service.findAllProducts(null), service.findAllClients());
+        purchaseForm = new PurchaseForm(service.findAllProducts(null), service.findAllClients());
         purchaseForm.setWidth("25em");
 
         purchaseForm.addSaveListener(this::savePurchase);
@@ -98,27 +98,27 @@ public class PurchaseView extends VerticalLayout{
         if(purchase == null) {
             closeEditor();
         } else {
-            purchaseForm.setPurchase(purchase);
             purchaseForm.setVisible(true);
             addClassName("editing");
+            purchaseForm.setPurchase(purchase);
         }
         return null;
     }
 
     private void savePurchase(PurchaseForm.SaveEvent event) {
-        // service.savePurchase(event.getPurchase());
+        service.savePurchase(event.getPurchase());
         updateList();
         closeEditor();
     }
 
     private void deletePurchase(PurchaseForm.DeleteEvent event) {
-        // service.deletePurchase(event.getPurchase());
+        service.deletePurchase(event.getPurchase());
         updateList();
         closeEditor();
     }
 
     private void updateList() {
-        // grid.setItems(service.findAllPurchases());
+        grid.setItems(service.findAllPurchases());
     }
 
 }

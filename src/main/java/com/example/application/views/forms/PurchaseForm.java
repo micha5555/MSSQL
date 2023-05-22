@@ -1,6 +1,8 @@
 package com.example.application.views.forms;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.application.data.entity.Client;
 import com.example.application.data.entity.Product;
@@ -21,6 +23,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.shared.Registration;
 
 public class PurchaseForm extends FormLayout{
@@ -42,6 +45,9 @@ public class PurchaseForm extends FormLayout{
         client.setItems(clients);
 
         grid.setItems(products);
+        // for(Product p : products) {
+        //   System.out.println(p.getId());
+        // }
         grid.setSelectionMode(SelectionMode.MULTI);
 
         configureGrid();
@@ -59,6 +65,10 @@ public class PurchaseForm extends FormLayout{
     }
 
     public void setPurchase(Purchase purchase) {
+      // if(purchase != null) {
+      //   System.out.println(purchase.getOrderedProducts());
+
+      // }
         grid.deselectAll();
         this.purchase = purchase;
         binder.readBean(purchase);
@@ -89,7 +99,7 @@ public class PurchaseForm extends FormLayout{
 
     private void validateAndSave() {
         try {
-          purchase.setOrderedProducts(grid.getSelectedItems());
+          purchase.setOrderedProducts(new ArrayList<>(grid.getSelectedItems()));
           binder.writeBean(purchase);
           fireEvent(new SaveEvent(this, purchase));
         } catch (ValidationException e) {

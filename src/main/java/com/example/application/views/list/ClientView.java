@@ -106,19 +106,19 @@ public class ClientView extends VerticalLayout{
     }
 
     private void saveClient(ClientForm.SaveEvent event) {
-        // service.saveClient(event.getClient());
+        service.saveClient(event.getClient());
         updateList();
         closeEditor();
     }
 
     private void deleteClient(ClientForm.DeleteEvent event) {
-        // service.deleteClient(event.getClient());
+        service.deleteClient(event.getClient());
         updateList();
         closeEditor();
     }
 
     private void updateList() {
-        // grid.setItems(service.findAllClients());
+        grid.setItems(service.findAllClients());
     }
 
 }

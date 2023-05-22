@@ -31,6 +31,11 @@ public class ProductRepository/*  extends JpaRepository<Product, Long>*/{
         return jdbcTemplate.query("SELECT * FROM product", new ProductMapper());
     }
 
+    public List<Product> findProductsFromProductsInPurchaseTabelWithPurchaseId(int purchaseId) {
+        String query = "SELECT * FROM product WHERE product_id IN (SELECT product_id FROM productsInPurchase WHERE purchase_id = ?)";
+        return jdbcTemplate.query(query, new ProductMapper(), purchaseId);
+    }
+
     public Product findProductById(int id) {
         String query = "SELECT * FROM product WHERE product_id = ?";
 
@@ -80,7 +85,6 @@ public class ProductRepository/*  extends JpaRepository<Product, Long>*/{
         int result = jdbcTemplate.update(query, product.getId());
         return result > 0;
     }
-
 
     class ProductMapper implements RowMapper<Product> {
 

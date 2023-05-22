@@ -42,25 +42,29 @@ public class ShopService {
     private ProductRepository productRepository;
     @Autowired
     private ReviewRepository reviewRepository;
-    // @Autowired
-    // private PurchaseRepository purchaseRepository;
-    // @Autowired
-    // private ClientRepository clientRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+    @Autowired
+    private ClientRepository clientRepository;
     // @Autowired
     // private PaymentRepository paymentRepository;
 
     public ShopService(CategoryRepository categoryRepository,
                         ProductRepository productRepository,
-                        ReviewRepository reviewRepository) {
+                        ReviewRepository reviewRepository,
+                        ClientRepository clientRepository,
+                        PurchaseRepository purchaseRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.reviewRepository = reviewRepository;
+        this.clientRepository = clientRepository;
+        this.purchaseRepository = purchaseRepository;
         createFakeData();
     }
 
-    // public List<Client> findAllClients() {
-    //     return clientRepository.findAll();
-    // }
+    public List<Client> findAllClients() {
+        return clientRepository.findAll();
+    }
 
     public List<Category> findAllCategories(String stringFilter) {
         // if(stringFilter == null || stringFilter.isEmpty()) {
@@ -82,9 +86,9 @@ public class ShopService {
         return reviewRepository.findAll();
     }
 
-    // public List<Purchase> findAllPurchases() {
-    //     return purchaseRepository.findAll();
-    // // }
+    public List<Purchase> findAllPurchases() {
+        return purchaseRepository.findAll();
+    }
 
     // public List<Payment> findAllPayments() {
     //     return paymentRepository.findAll();
@@ -127,29 +131,29 @@ public class ShopService {
         productRepository.save(product);
     }
 
-    // public void deleteClient(Client client) {
-    //     clientRepository.delete(client);
-    // }
+    public void deleteClient(Client client) {
+        clientRepository.delete(client);
+    }
 
-    // public void saveClient(Client client) {
-    //     if (client == null) { 
-    //         System.err.println("Client is null. Are you sure you have connected your form to the application?");
-    //         return;
-    //     }
-    //     clientRepository.save(client);
-    // }
+    public void saveClient(Client client) {
+        if (client == null) { 
+            System.err.println("Client is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        clientRepository.save(client);
+    }
 
-    // public void deletePurchase(Purchase purchase) {
-    //     purchaseRepository.delete(purchase);
-    // }
+    public void deletePurchase(Purchase purchase) {
+        purchaseRepository.delete(purchase);
+    }
 
-    // public void savePurchase(Purchase purchase) {
-    //     if (purchase == null) { 
-    //         System.err.println("Purchase is null. Are you sure you have connected your form to the application?");
-    //         return;
-    //     }
-    //     purchaseRepository.save(purchase);
-    // }
+    public void savePurchase(Purchase purchase) {
+        if (purchase == null) { 
+            System.err.println("Purchase is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        purchaseRepository.save(purchase);
+    }
 
     // public void deletePayment(Payment payment) {
     //     paymentRepository.delete(payment);
